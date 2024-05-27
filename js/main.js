@@ -182,8 +182,8 @@ function guess() {
   let dist = haversineDistance(coords, pickcoords);
   if (dist < 1000) {
     dist = Math.floor(dist) + " " + txt.meters;
-  } else if (dist < 10000) {
-    dist = Math.floor(dist / 10000) * 10 + " km";
+  } else if (dist < 100000) {
+    dist = (Math.floor(dist) / 1000).toFixed(1) + " km";
   } else {
     dist = Math.floor(dist / 1000) + " km";
   }
