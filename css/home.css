@@ -21,7 +21,7 @@ a {
   display: flex;
   flex-direction: row;
   width: 100%;
-  background-color: #010203;
+  background-color: #111213;
   text-align: center;
   margin-bottom: 16px;
 }
@@ -118,4 +118,20 @@ a {
 hr {
   margin-left: 5%;
   margin-right: 5%;
+}
+
+@media only screen and (hover: none) and (pointer: coarse) {
+  #title span {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 48pt;
+    font-weight: 400;
+    font-style: normal;
+    padding: 8px 16px 16px 8px;
+    margin: auto auto auto 0;
+ }
+ 
+  #title img {
+    height: 80px;
+    margin: 16px 16px 16px auto;
+  }
 }

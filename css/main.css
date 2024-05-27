@@ -31,7 +31,7 @@ body {
 #titleBar {
   display: flex;
   flex-direction: row;
-  background-color: #010203;
+  background-color: #111213;
   color: #ffffff;
   top: 0;
   left: 0;
