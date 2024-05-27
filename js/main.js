@@ -1,14 +1,14 @@
 /**
  * Integer randomizer
  * @param {number} max Max value
- * @returns {number} Random integer in [0 ; max[
+ * @returns {number} Random integer in [0; max[
  */
 function randomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
 /**
- * Calculate the distance between two coordinates using the Haversine forumla.
+ * Calculate the distance between two coordinates using the Haversine formula.
  * @param coords1 First point
  * @param coords2 Second point
  * @returns The distance between the two points
@@ -38,6 +38,7 @@ function haversineDistance(coords1, coords2) {
 }
 
 let params = new URLSearchParams(window.location.search);
+let maxrand = Object.keys(spawns).length;
 let index;
 let coords;
 let pickcoords = [0, 0];
@@ -135,7 +136,7 @@ function timerLoop() {
 }
 
 function start() {
-  index = randomInt(Object.keys(spawns).length);
+  index = randomInt(maxrand);
   coords = spawns[index];
 
   $('#iframePane').html(`<iframe frameborder="0" id="panoramas" loading="lazy"
