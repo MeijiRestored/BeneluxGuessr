@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport"/>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type" lang="fr"/>
+  <meta content="BeneluxGuessr" property="og:title"/>
+  <meta content="BeneluxGuessr - A geography-guessing game based in the Benelux!" property="og:description"/>
+  <meta content="#ACE1AF" data-react-helmet="true" name="theme-color"/>
+  <meta content="website" property="og:type"/>
+  <meta content="assets/banner.png" property="og:image">
+  <meta content="BeneluxGuessr" name="twitter:title"/>
+  <meta
+      content="BeneluxGuessr - A geography-guessing game based in the Benelux!"
+      name="twitter:description"/>
+
+  <title>BeneluxGuessr</title>
+
+  <link href="assets/beneluxguessr-bg.png" rel="icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+
+  <link href="css/main.css" rel="stylesheet"/>
+  <link
+      crossorigin=""
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      rel="stylesheet"/>
+  <script
+      crossorigin=""
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.js"></script>
+  <script
+      crossorigin="anonymous"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<div id="mainPane">
+  <div id="banner">
+    <div id="titleBar"><img alt="Logo" src="assets/beneluxguessr.png"><span>BeneluxGuessr</span></div>
+  </div>
+  <div id="map">
+  </div>
+  <div id="mapbtn" onclick="maptoggle()">
+    <img alt="Show map" src="assets/map.png">
+  </div>
+  <div id="bottomBar">
+    <button id="restart" onclick="restart()">
+      Go back<br/>to start
+    </button>
+    <div id="textBox">
+    </div>
+    <button id="guess" onclick="guess()">
+      Guess
+    </button>
+    <button id="next" onclick="next()">
+      Next
+    </button>
+  </div>
+  <div id="iframePane">
+    Loading...
+  </div>
+  <div id="hardcorePane">
+    <div id="hardcoreInfo"></div>
+  </div>
+</div>
+<script src="assets/spawns.js"></script>
+<script src="assets/benelux.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

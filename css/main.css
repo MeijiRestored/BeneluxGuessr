@@ -1,0 +1,278 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#panoramas, #mainPane {
+  position: absolute;
+  height: 100%;
+  width: 100vw;
+  border: 0;
+  padding: 0;
+}
+
+#banner {
+  position: absolute;
+  z-index: 10;
+}
+
+#iframePane {
+  z-index: 1;
+}
+
+#titleBar {
+  display: flex;
+  flex-direction: row;
+  background-color: #010203;
+  color: #ffffff;
+  top: 0;
+  left: 0;
+  border-bottom-right-radius: 32px;
+  z-index: 6;
+}
+
+#titleBar span {
+  font-family: "Jersey 25", sans-serif;
+  font-size: 42pt;
+  font-weight: 400;
+  font-style: normal;
+  padding: 8px 16px 16px 8px;
+}
+
+#bottomBar {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  z-index: 3;
+  background-color: #313E44CC;
+  margin: 12px;
+  width: 98.5%;
+  height: 96px;
+  bottom: 0;
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+}
+
+#bottomBar #restart {
+  font-family: Helvetica, sans-serif;
+  margin: 16px 0 16px 32px;
+  border-radius: 12px;
+  background-color: #ffa958;
+  font-size: 125%;
+  border: 0;
+  box-shadow: 0 0 10px 2px #ffa958;
+}
+
+#bottomBar #restart:hover {
+  background-color: #bb7c3b;
+}
+
+#bottomBar #restart:active {
+  background-color: #885b2e;
+}
+
+#bottomBar #next {
+  display: none;
+  color: #ffffff;
+  font-family: Helvetica, sans-serif;
+  margin: 16px 32px 16px 0;
+  border-radius: 12px;
+  background-color: #1569ce;
+  font-size: 125%;
+  border: 0;
+  box-shadow: 0 0 10px 2px #1569ce;
+}
+
+#bottomBar #next:hover {
+  background-color: #1258ab;
+}
+
+#bottomBar #next:active {
+  background-color: #0f3b70;
+}
+
+#bottomBar #textBox {
+  margin: auto;
+  text-align: center;
+  font-size: 140%;
+  color: #ffffff;
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#bottomBar #guess {
+  font-family: Helvetica, sans-serif;
+  margin: 16px 32px 16px 0;
+  border-radius: 12px;
+  background-color: #76a90c;
+  font-size: 125%;
+  border: 0;
+  font-weight: bold;
+  box-shadow: 0 0 10px 2px #76a90c;
+}
+
+#bottomBar #guess:hover {
+  background-color: #6a9618;
+}
+
+#bottomBar #guess:active {
+  background-color: #4f7208;
+}
+
+#map {
+  transition: all 250ms ease;
+  cursor: crosshair;
+  border-radius: 12px;
+  width: 420px;
+  height: 240px;
+  position: absolute;
+  background-color: #efeeed;
+  bottom: 128px;
+  right: 76px;
+  z-index: 2;
+}
+
+#map:hover {
+  width: 50%;
+  height: 50%;
+}
+
+#textBox span + br + span {
+  font-size: 80%;
+  color: #dddddd;
+}
+
+#titleBar img {
+  height: 56px;
+  margin: 8px;
+}
+
+#mapbtn img {
+  width: 38px;
+  height: 38px;
+}
+
+#mapbtn {
+  display: none;
+  position: absolute;
+  background-color: #ace1af;
+  border-radius: 12px;
+  bottom: 128px;
+  left: 16px;
+  z-index: 3;
+  padding: 12px;
+  box-shadow: 0 0 5px 1px #000000;
+}
+
+#mapbtn:active {
+  background-color: #749375;
+}
+
+#mapList {
+  position: absolute;
+  height: 100%;
+  width: 100vw;
+}
+
+@media only screen and (hover: none) and (pointer: coarse) {
+  #map {
+    display: none;
+  }
+
+  #bottomBar {
+    width: 95%;
+  }
+
+  #mapbtn {
+    display: block;
+  }
+
+  #map {
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #efeeed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+  }
+
+  #map:hover {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#hardcorePane {
+  display: none;
+  z-index: 5;
+  backdrop-filter: blur(48px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#hardcoreInfo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  font-size: 200%;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+#hardcoreStart {
+  font-family: Helvetica, sans-serif;
+  margin: 16px 0 16px 32px;
+  border-radius: 12px;
+  background-color: #bb1a1a;
+  color: #ffffff;
+  padding: 16px;
+  font-size: 75%;
+  font-weight: bold;
+  border: 0;
+  box-shadow: 0 0 10px 2px #bb1a1a;
+}
+
+#hardcoreStart:hover {
+  background-color: #7e1212;
+}
+
+#hardcoreStart:active {
+  background-color: #641010;
+}
+
+#noHardcore {
+  font-family: Helvetica, sans-serif;
+  margin: 16px 0 16px 32px;
+  border-radius: 12px;
+  background-color: #1569ce;
+  color: #ffffff;
+  font-size: 50%;
+  padding: 12px;
+  border: 0;
+  box-shadow: 0 0 10px 2px #1569ce;
+}
+
+#noHardcore:hover {
+  background-color: #1258ab;
+}
+
+#noHardcore:active {
+  background-color: #0f3b70;
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Street View by Coordinates</title>
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+</head>
+<body>
+<script src="belgium.js"></script>
+<script src="luxembourg.js"></script>
+<script src="netherlands.js"></script>
+<script>
+  async function main() {
+    const bounds = {
+      benelux: {
+        bottomLeft: {lat: 49.465, lng: 2.335},
+        topRight: {lat: 53.635, lng: 7.256}
+      },
+      netherlands: {
+        bottomLeft: {lat: 50.740, lng: 3.071},
+        topRight: {lat: 53.635, lng: 7.256}
+      },
+      belgium: {
+        bottomLeft: {lat: 49.465, lng: 2.335},
+        topRight: {lat: 51.507, lng: 6.710}
+      },
+      luxembourg: {
+        bottomLeft: {lat: 49.436, lng: 5.659},
+        topRight: {lat: 50.190, lng: 6.626}
+      },
+      netherlands_antilles_1: {
+        bottomLeft: {lat: 11.9439, lng: -70.2919},
+        topRight: {lat: 12.632, lng: -68.019}
+      },
+      netherlands_antilles_2: {
+        bottomLeft: {lat: 17.4456, lng: -63.2970},
+        topRight: {lat: 18.0708, lng: -62.8521}
+      }
+    }
+    const toGenerate = 200;
+    let gen = 0;
+    let startIndex = 200;
+    let generated = {};
+
+    function checkInArea(pt, area) {
+      var point = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [pt.lng, pt.lat]
+        }
+      };
+
+      return turf.booleanPointInPolygon(point, area);
+    }
+
+    function getRandomCoordinates(lat1, lng1, lat2, lng2) {
+      const minLat = Math.min(lat1, lat2);
+      const maxLat = Math.max(lat1, lat2);
+      const minLng = Math.min(lng1, lng2);
+      const maxLng = Math.max(lng1, lng2);
+
+      const randomLat = Math.random() * (maxLat - minLat) + minLat;
+      const randomLng = Math.random() * (maxLng - minLng) + minLng;
+
+      return {
+        lat: randomLat,
+        lng: randomLng
+      };
+    }
+
+    function bindToStreetview(lat, lng) {
+      return new Promise((resolve, reject) => {
+        var sv = new google.maps.StreetViewService();
+        var latLng = {lat: lat, lng: lng};
+
+        sv.getPanorama({location: latLng, radius: 500}, (data, status) => {
+          if (status === 'OK') {
+            let gotlat = data.location.latLng.lat();
+            let gotlng = data.location.latLng.lng();
+            resolve({lat: gotlat, lng: gotlng, ok: true});
+          } else {
+            resolve({lat: 0, lng: 0, ok: false});
+          }
+        });
+      });
+    }
+
+
+    while (gen < toGenerate) {
+      let rand = Math.random();
+      let country;
+      let countryarea;
+      if (rand < 0.4) {
+        country = "belgium";
+        countryarea = belgium;
+      } else if (rand < 0.5) {
+        country = "luxembourg";
+        countryarea = luxembourg;
+      } else if (rand < 0.992) {
+        country = "netherlands";
+        countryarea = netherlands;
+      } else if (rand < 0.998) {
+        country = "netherlands_antilles_1";
+        countryarea = netherlands;
+      } else {
+        country = "netherlands_antilles_2";
+        countryarea = netherlands;
+      }
+
+      let c = getRandomCoordinates(bounds[country].bottomLeft.lat, bounds[country].bottomLeft.lng, bounds[country].topRight.lat, bounds[country].topRight.lng);
+
+      if (checkInArea(c, countryarea.features[0])) {
+        let sv = await bindToStreetview(c.lat, c.lng);
+        if (sv.ok) {
+          if (checkInArea(sv, countryarea.features[0])) {
+            generated[gen + startIndex] = [sv.lat, sv.lng, country];
+            gen += 1;
+            console.log("Generated " + startIndex + " + " + gen);
+          }
+        }
+      }
+    }
+
+    const genJSON = JSON.stringify(generated);
+    var blob = new Blob([genJSON], {type: 'text/javascript'});
+    var url = URL.createObjectURL(blob);
+
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'spawns.json';
+    a.click();
+
+    URL.revokeObjectURL(url);
+  }
+
+  main();
+</script>
+</body>
+</html>
