@@ -43,9 +43,28 @@ let coords;
 let pickcoords = [0, 0];
 let interval;
 const timer = new Timer();
+let txt;
+let maplanguage;
+if (params.has("hl", "fr")) {
+  txt = strings.FR;
+  maplanguage = "fr";
+} else if (params.has("hl", "lu")) {
+  txt = strings.LU;
+  maplanguage = "_";
+} else if (params.has("hl", "nl")) {
+  txt = strings.NL;
+  maplanguage = "nl";
+} else {
+  txt = strings.EN;
+  maplanguage = "en";
+}
+
+$("#titlelink").attr("href", "index.html?hl=" + (maplanguage === "_" ? "lu" : maplanguage));
+$("html").attr("lang", maplanguage === "_" ? "lu" : maplanguage);
 
 var map = L.map('map', {zoomControl: false}).setView([51.601, 5.345], 6);
-L.tileLayer('https://tile.tracestrack.com/fr/{z}/{x}/{y}.png?key=8c4267e8a3026ab8626b0ef7a7886842', {
+
+L.tileLayer(`https://tile.tracestrack.com/${maplanguage}/{z}/{x}/{y}.png?key=8c4267e8a3026ab8626b0ef7a7886842`, {
   minZoom: 5,
   maxZoom: 19,
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -85,6 +104,10 @@ let resmrk = L.marker([-200, -200], {
 
 let resline;
 
+$("#restart").html(txt.return_start)
+$("#guess").html(txt.guess)
+$("#next").html(txt.next)
+
 function hardcore() {
   $('#hardcorePane').toggle();
   $('#hardcoreInfo').html("");
@@ -98,7 +121,7 @@ function hardcore() {
     $('#iframePane').toggle(500);
     $('#hardcorePane').toggle(500);
     $('#hardcorePane').css("z-index", 1)
-    $('#hardcoreInfo').html("Time is up!");
+    $('#hardcoreInfo').html(txt.time_up);
     $('#restart').toggle(500);
   }, 10000)
 }
@@ -122,10 +145,10 @@ function start() {
   if (params.has("m", "h")) {
     $('#hardcorePane').toggle();
     $('#hardcoreInfo').html(`<button id="hardcoreStart" onclick="hardcore()">
-      Start
+      ${txt.start}
     </button><br>
     <button id="noHardcore" onclick="window.location.href = 'play.html?m=c'">
-      Return to classic mode
+      ${txt.return_classic}
     </button>`);
   } else {
     timer.start();
@@ -141,7 +164,7 @@ function start() {
 start();
 
 function restart() {
-  $('#iframePane').html("Chargement...");
+  $('#iframePane').html(txt.loading);
   $('#iframePane').html(`<iframe frameborder="0" id="panoramas" loading="lazy"
           src="https://www.google.com/maps/embed/v1/streetview?location=${coords[0]}%2C${coords[1]}&key=AIzaSyA2Qq9tiWUtSdlkiBJov0EMgRDPTEMKJHw&fov=90&language=ru&heading=0"></iframe>
 `);
@@ -158,7 +181,7 @@ function guess() {
   }, 500)
   let dist = haversineDistance(coords, pickcoords);
   if (dist < 1000) {
-    dist = Math.floor(dist) + " meters";
+    dist = Math.floor(dist) + " " + txt.meters;
   } else if (dist < 10000) {
     dist = Math.floor(dist / 10000) * 10 + " km";
   } else {
@@ -168,7 +191,10 @@ function guess() {
   resmrk.setLatLng(coords);
   resline = L.polyline([coords, pickcoords], {color: '#2c3738', weight: 3, interactive: false}).addTo(map);
   map.off('click');
-  $('#textBox').html(`You were <span style="font-size: 110%">${dist}</span> away from the real location, in ${(timer.getTime() / 1000).toFixed(1)}s !<br><span></span>`);
+  let resultstr = txt.results;
+  resultstr = resultstr.replace("\${dist}", dist);
+  resultstr = resultstr.replace("\${timer}", (timer.getTime() / 1000).toFixed(1));
+  $('#textBox').html(resultstr);
   $('#restart').toggle();
   $('#guess').toggle();
   $('#next').toggle();

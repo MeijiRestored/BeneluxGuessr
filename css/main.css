@@ -79,6 +79,11 @@ body {
   background-color: #885b2e;
 }
 
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 #bottomBar #next {
   display: none;
   color: #ffffff;

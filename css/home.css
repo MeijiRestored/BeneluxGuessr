@@ -17,6 +17,14 @@ a {
   text-decoration: inherit;
 }
 
+.flag {
+  height: 18px;
+  margin-right: 4px;
+  translate: 0 2px;
+  border-radius: 2px;
+  border: 1px solid #91dafd;
+}
+
 #title {
   display: flex;
   flex-direction: row;
@@ -51,7 +59,7 @@ a {
   font-style: normal;
 }
 
-#mainPage img {
+#mainPage #gameimg {
   margin: 32px 32px 12px;
   width: 80%;
   border: 2px #fdfeff solid;
@@ -120,10 +128,50 @@ hr {
   margin-right: 5%;
 }
 
+.buttonsrow button {
+  padding: 8px;
+  color: #ffffff;
+  font-family: Helvetica, sans-serif;
+  margin: 16px 32px 16px 0;
+  border-radius: 12px;
+  font-size: 75%;
+  background-color: #1596ce;
+  border: 0;
+  box-shadow: 0 0 10px 2px #1596ce;
+}
+
+.buttonsrow button:hover {
+  background-color: #1258ab;
+}
+
+.buttonsrow button:active {
+  background-color: #0f3b70;
+}
+
+.buttonsrow .btnactive {
+  padding: 8px;
+  color: #ffffff;
+  font-family: Helvetica, sans-serif;
+  margin: 16px 32px 16px 0;
+  border-radius: 12px;
+  font-size: 75%;
+  background-color: #1569ce;
+  border: 0;
+  box-shadow: 0 0 10px 2px #1569ce;
+}
+
+.buttonsrow .btnactive:hover {
+  background-color: #1258ab;
+}
+
+.buttonsrow .btnactive:active {
+  background-color: #0f3b70;
+}
+
 @media only screen and (hover: none) and (pointer: coarse) {
   #title span {
     font-family: "Jersey 25", sans-serif;
-    font-size: 48pt;
+    font-size: 40pt;
     font-weight: 400;
     font-style: normal;
     padding: 8px 16px 16px 8px;

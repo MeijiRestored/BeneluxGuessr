@@ -25,6 +25,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 
+  <script
+      crossorigin="anonymous"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
   <link href="css/home.css" rel="stylesheet"/>
 </head>
 <body>
@@ -35,19 +40,25 @@
   Will you be able to find your location precisely?<br><br>
   <span class="btntitle">Play : </span><br>
   <div class="buttonsrow">
-    <a href="play.html?m=c">
+    <a id="classiclink" href="play.html?m=c">
       <div id="classic">
         Classic mode
       </div>
     </a>
-    <a href="play.html?m=h">
+    <a id="hardcorelink" href="play.html?m=h">
       <div id="hardcore">
         Hardcore more
       </div>
     </a>
   </div>
+  <div class="buttonsrow">
+    <button id="en" onclick="setlang('en')"><img alt="en" src="assets/gb.svg" class="flag">English</button>
+    <button id="fr" onclick="setlang('fr')"><img alt="en" src="assets/be.svg" class="flag">Français</button>
+    <button id="nl" onclick="setlang('nl')"><img alt="en" src="assets/nl.svg" class="flag">Nederland</button>
+    <button id="lu" onclick="setlang('lu')"><img alt="en" src="assets/lu.svg" class="flag">Lëtzebuergsch</button>
+  </div>
   <hr>
-  <img alt="Game image" src="assets/game-img.png"><br>
+  <img id="gameimg" alt="Game image" src="assets/game-img.png"><br>
   <span class="legend">The game in action.</span>
   <hr>
   <br>Try to guess your location in the Benelux with the given StreetView. Then, place your marker on the map to submit your guess!<br><br>
@@ -56,5 +67,6 @@
   <br>Too easy? Try hardcore mode!<br><br>
   In this mode, you only have 10 seconds to look around, then the view goes away!
 </div>
+<script src="js/home.js"></script>
 </body>
 </html>
