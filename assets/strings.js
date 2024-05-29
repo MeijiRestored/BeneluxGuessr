@@ -9,6 +9,7 @@ const strings = {
     return_classic: "Return to classic mode",
     guess: "Guess",
     next: "Next",
+    score: "Score: ",
   },
   FR: {
     time_up: "Temps écoulé !",
@@ -20,6 +21,7 @@ const strings = {
     return_classic: "Retourner au mode classique",
     guess: "Valider",
     next: "Suivant",
+    score: "Score : ",
   },
   NL: {
     time_up: "Verstreken tijd !",
@@ -31,6 +33,7 @@ const strings = {
     return_classic: "Keer terug naar de klassieke modus",
     guess: "Bevestigen",
     next: "Volgende",
+    score: "Score: ",
   },
   LU: {
     time_up: "Zäit ass vergaangen!",
@@ -42,5 +45,6 @@ const strings = {
     return_classic: "Zréck op de klassesche Modus",
     guess: "Validéieren",
     next: "Nächst",
+    score: "Score: ",
   },
 }

@@ -7,6 +7,21 @@ let interval;
 const timer = new Timer();
 let txt;
 let maplanguage;
+
+if (localStorage.getItem("bnlg-data") == null) {
+  let da = {
+    "score": 0,
+    "scoreHardcore": 0,
+    "bestDist": null,
+    "bestTime": null,
+    "bestDistHardcore": null,
+    "bestTimeHardcore": null,
+    "playtime": 0,
+    "nbGames": 0
+  }
+  localStorage.setItem("bnlg-data", JSON.stringify(da))
+}
+
 if (params.has("hl", "fr")) {
   txt = strings.FR;
   maplanguage = "fr";
@@ -32,13 +47,13 @@ L.tileLayer(`https://tile.tracestrack.com/${maplanguage}/{z}/{x}/{y}.png?key=8c4
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-var marker = L.icon({
+const marker = L.icon({
   iconUrl: 'assets/marker.png',
   iconSize: [36, 36],
   iconAnchor: [18, 36]
 });
 
-var resmarker = L.icon({
+const resmarker = L.icon({
   iconUrl: 'assets/res_marker.png',
   iconSize: [36, 36],
   iconAnchor: [18, 36]
@@ -142,21 +157,38 @@ function guess() {
     map.flyTo(coords, 13);
   }, 500)
   let dist = haversineDistance(coords, pickcoords);
-  if (dist < 1000) {
-    dist = Math.floor(dist) + " " + txt.meters;
-  } else if (dist < 100000) {
-    dist = (Math.floor(dist) / 1000).toFixed(1) + " km";
+
+  let sc = calcScore(dist);
+  let str = JSON.parse(localStorage.getItem("bnlg-data"));
+  if (params.has("m", "h")) {
+    str.scoreHardcore += sc;
+
+    if (str.bestDistHardcore == null || dist < str.bestDistHardcore) {
+      str.bestDistHardcore = dist;
+      str.bestTimeHardcore = timer.getTime();
+    }
   } else {
-    dist = Math.floor(dist / 1000) + " km";
+    str.score += sc;
+
+    if (str.bestDist == null || dist < str.bestDist) {
+      str.bestDist = dist;
+      str.bestTime = timer.getTime();
+    }
   }
+
+  str.nbGames += 1;
+  str.playtime += timer.getTime();
+
+  localStorage.setItem("bnlg-data", JSON.stringify(str));
 
   resmrk.setLatLng(coords);
   resline = L.polyline([coords, pickcoords], {color: '#2c3738', weight: 3, interactive: false}).addTo(map);
   map.off('click');
   let resultstr = txt.results;
-  resultstr = resultstr.replace("\${dist}", dist);
+  resultstr = resultstr.replace("\${dist}", distFormat(dist));
   resultstr = resultstr.replace("\${timer}", (timer.getTime() / 1000).toFixed(1));
   $('#textBox').html(resultstr);
+  $('#textBox span + br + span').html(txt.score + sc);
   $('#restart').toggle();
   $('#guess').toggle();
   $('#next').toggle();

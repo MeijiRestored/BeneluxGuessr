@@ -11,7 +11,7 @@ function randomInt(max) {
  * Calculate the distance between two coordinates using the Haversine formula.
  * @param coords1 First point
  * @param coords2 Second point
- * @returns The distance between the two points
+ * @returns {number} The distance between the two points
  */
 function haversineDistance(coords1, coords2) {
   function toRad(x) {
@@ -43,7 +43,25 @@ function haversineDistance(coords1, coords2) {
  * @returns {number} Score between 0 and 300
  */
 function calcScore(dist) {
-  let s = Math.floor(((700 / ((dist / 1000) + 8.17)) - 6.8) * 1.2);
+  let s = Math.floor(((700 / ((dist / 1000) + 8.17) * 3) - 6.8) * 1.2);
   s = s > 300 ? 300 : (s < 0 ? 0 : s);
   return s;
+}
+
+/**
+ * Formats distance in a human-readable way.
+ * @param dist {number} Distance in meters
+ * @returns {string} Formatted string
+ */
+function distFormat(dist) {
+  let d;
+  if (dist < 1000) {
+    d = Math.floor(dist) + " " + txt.meters;
+  } else if (dist < 100000) {
+    d = (Math.floor(dist) / 1000).toFixed(1) + " km";
+  } else {
+    d = Math.floor(dist / 1000) + " km";
+  }
+
+  return d;
 }
