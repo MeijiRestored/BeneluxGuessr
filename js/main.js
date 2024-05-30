@@ -84,6 +84,7 @@ let resline;
 $("#restart").html(txt.return_start)
 $("#guess").html(txt.guess)
 $("#next").html(txt.next)
+$("#closeStats").html(txt.close);
 
 function hardcore() {
   $('#hardcorePane').toggle();
@@ -219,4 +220,19 @@ function next() {
 
 function maptoggle() {
   $('#map').toggle();
+}
+
+function statstoggle() {
+  $('#statsWindow').toggle();
+  $('#hardcorePane').toggle();
+
+  let str = JSON.parse(localStorage.getItem("bnlg-data"));
+  $('#statsContent').html(`<span>${txt.stats}</span><br><br>
+    ${txt.nbgames} ${str.nbGames}<br>
+    ${txt.scorec} ${str.score}<br>
+    ${txt.scoreh} ${str.scoreHardcore}<br>
+    ${txt.bestc} ${str.bestDist == null ? txt.none : distFormat(str.bestDist) + " (" + (str.bestTime / 1000).toFixed(1) + "s)"}<br>
+    ${txt.besth} ${str.bestDistHardcore == null ? txt.none : distFormat(str.bestDistHardcore) + " (" + (str.bestTimeHardcore / 1000).toFixed(1) + "s)"}<br>
+    ${txt.playtime} ${msToTime(str.playtime)}<br>
+  `);
 }

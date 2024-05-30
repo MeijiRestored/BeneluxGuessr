@@ -52,6 +52,9 @@
   <div id="mapbtn" onclick="maptoggle()">
     <img alt="Show map" src="assets/map.png">
   </div>
+  <div id="statsbtn" onclick="statstoggle()">
+    <img alt="Show stats" src="assets/stats.png">
+  </div>
   <div id="bottomBar">
     <button id="restart" onclick="restart()">
       Go back<br/>to start
@@ -70,6 +73,12 @@
   </div>
   <div id="hardcorePane">
     <div id="hardcoreInfo"></div>
+  </div>
+  <div id="statsWindow">
+    <div id="statsContent"></div>
+    <button id="closeStats" onclick="statstoggle()">
+      Close
+    </button>
   </div>
 </div>
 <script src="assets/strings.js"></script>

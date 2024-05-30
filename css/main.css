@@ -4,12 +4,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: #000000;
-}
-
-* {
   font-family: Arial, Helvetica, sans-serif;
 }
-
 
 #panoramas, #mainPane {
   position: absolute;
@@ -183,6 +179,30 @@ a {
   background-color: #749375;
 }
 
+#statsbtn {
+  position: absolute;
+  background-color: #f3c21a;
+  border-radius: 12px;
+  top: 96px;
+  left: 16px;
+  z-index: 3;
+  padding: 10px;
+  box-shadow: 0 0 5px 1px #000000;
+}
+
+#statsbtn:hover {
+  background-color: #b68f12;
+}
+
+#statsbtn:active {
+  background-color: #987810;
+}
+
+#statsbtn img {
+  width: 28px;
+  height: 28px;
+}
+
 #mapList {
   position: absolute;
   height: 100%;
@@ -280,4 +300,52 @@ a {
 
 #noHardcore:active {
   background-color: #0f3b70;
+}
+
+#closeStats {
+  font-family: Helvetica, sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12px;
+  border-radius: 12px;
+  background-color: #d52f2f;
+  color: #ffffff;
+  font-size: 90%;
+  padding: 8px;
+  border: 0;
+  box-shadow: 0 0 10px 2px #d52f2f;
+}
+
+#closeStats:hover {
+  background-color: #b72929;
+}
+
+#closeStats:active {
+  background-color: #8d1d1d;
+}
+
+#statsContent span {
+  font-size: 125%;
+  font-weight: bold;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+#statsContent {
+  text-align: left;
+}
+
+#statsWindow {
+  text-align: center;
+  display: none;
+  z-index: 10;
+  -webkit-box-shadow: 5px 5px 15px 5px #000000;
+  box-shadow: 5px 5px 15px 5px #000000;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #dedede;
+  background-color: #232334;
+  border-radius: 4px;
+  padding: 12px;
 }
