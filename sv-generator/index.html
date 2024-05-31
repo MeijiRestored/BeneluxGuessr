@@ -29,9 +29,9 @@
         topRight: {lat: 50.190, lng: 6.626}
       },
     }
-    const toGenerate = 2000;
+    const toGenerate = 5000;
     let gen = 0;
-    let startIndex = 3000;
+    let startIndex = 5000;
     let generated = {};
 
     function checkInArea(pt, area) {
@@ -86,7 +86,7 @@
       if (rand < 0.425) {
         country = "belgium";
         countryarea = belgium;
-      } else if (rand < 0.575) {
+      } else if (rand < 0.675) {
         country = "luxembourg";
         countryarea = luxembourg;
       } else {
