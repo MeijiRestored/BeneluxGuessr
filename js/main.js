@@ -22,13 +22,13 @@ if (localStorage.getItem("bnlg-data") == null) {
   localStorage.setItem("bnlg-data", JSON.stringify(da))
 }
 
-if (params.has("hl", "fr")) {
+if (params.get("hl") === "fr") {
   txt = strings.FR;
   maplanguage = "fr";
-} else if (params.has("hl", "lu")) {
+} else if (params.get("hl") === "lu") {
   txt = strings.LU;
   maplanguage = "_";
-} else if (params.has("hl", "nl")) {
+} else if (params.get("hl") === "nl") {
   txt = strings.NL;
   maplanguage = "nl";
 } else {
@@ -120,7 +120,7 @@ function start() {
           src="https://www.google.com/maps/embed/v1/streetview?location=${coords[0]}%2C${coords[1]}&key=AIzaSyA2Qq9tiWUtSdlkiBJov0EMgRDPTEMKJHw&fov=90&heading=0"></iframe>
   `);
 
-  if (params.has("m", "h")) {
+  if (params.get("m") === "h") {
     $('#hardcorePane').toggle();
     $('#hardcoreInfo').html(`<button id="hardcoreStart" onclick="hardcore()">
       ${txt.start}
@@ -161,7 +161,7 @@ function guess() {
 
   let sc = calcScore(dist);
   let str = JSON.parse(localStorage.getItem("bnlg-data"));
-  if (params.has("m", "h")) {
+  if (params.get("m") === "h") {
     str.scoreHardcore += sc;
 
     if (str.bestDistHardcore == null || dist < str.bestDistHardcore) {
@@ -197,7 +197,7 @@ function guess() {
 
 function next() {
   timer.reset();
-  if (params.has("m", "h")) {
+  if (params.get("m") === "h") {
     $('#iframePane').toggle();
     $('#hardcorePane').removeAttr("style");
     $('#hardcoreInfo').html("");
