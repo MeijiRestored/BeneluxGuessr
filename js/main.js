@@ -1,5 +1,4 @@
 let params = new URLSearchParams(window.location.search);
-let maxrand = Object.keys(spawns).length;
 let index;
 let coords;
 let pickcoords = [0, 0];
@@ -112,9 +111,9 @@ function timerLoop() {
   }, 50);
 }
 
-function start() {
-  index = randomInt(maxrand);
-  coords = spawns[index];
+async function start() {
+  let country = getRandCountry();
+  coords = await getSpawn(country === "netherlands" ? netherlands : (country === "belgium" ? belgium : luxembourg), country);
 
   $('#iframePane').html(`<iframe frameborder="0" id="panoramas" loading="lazy"
           src="https://www.google.com/maps/embed/v1/streetview?location=${coords[0]}%2C${coords[1]}&key=AIzaSyA2Qq9tiWUtSdlkiBJov0EMgRDPTEMKJHw&fov=90&heading=0"></iframe>
