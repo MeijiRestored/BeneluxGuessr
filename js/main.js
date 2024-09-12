@@ -143,7 +143,7 @@ start();
 function restart() {
   $('#iframePane').html(txt.loading);
   $('#iframePane').html(`<iframe frameborder="0" id="panoramas" loading="lazy"
-          src="https://www.google.com/maps/embed/v1/streetview?location=${coords[0]}%2C${coords[1]}&key=AIzaSyA2Qq9tiWUtSdlkiBJov0EMgRDPTEMKJHw&fov=90&language=ru&heading=0"></iframe>
+          src="https://www.google.com/maps/embed/v1/streetview?location=${coords[0]}%2C${coords[1]}&key=AIzaSyA2Qq9tiWUtSdlkiBJov0EMgRDPTEMKJHw&fov=90&heading=0"></iframe>
 `);
 }
 
