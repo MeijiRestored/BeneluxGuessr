@@ -2,7 +2,7 @@
 
 An open-source geography-guessing game based on the Benelux.
 
-![](assets/game-img.png)
+![](assets/img/game-img.png)
 
 ## Introduction
 

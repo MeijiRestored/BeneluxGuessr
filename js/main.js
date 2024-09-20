@@ -1,5 +1,4 @@
 let params = new URLSearchParams(window.location.search);
-let index;
 let coords;
 let pickcoords = [0, 0];
 let interval;
