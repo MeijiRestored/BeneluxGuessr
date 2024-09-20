@@ -5,6 +5,11 @@ let interval;
 const timer = new Timer();
 let txt;
 let maplanguage;
+let strings;
+let benelux;
+let belgium;
+let netherlands;
+let luxembourg;
 
 if (localStorage.getItem("bnlg-data") == null) {
   let da = {
@@ -21,16 +26,12 @@ if (localStorage.getItem("bnlg-data") == null) {
 }
 
 if (params.get("hl") === "fr") {
-  txt = strings.FR;
   maplanguage = "fr";
 } else if (params.get("hl") === "lu") {
-  txt = strings.LU;
   maplanguage = "_";
 } else if (params.get("hl") === "nl") {
-  txt = strings.NL;
   maplanguage = "nl";
 } else {
-  txt = strings.EN;
   maplanguage = "en";
 }
 
@@ -46,22 +47,16 @@ L.tileLayer(`https://tile.tracestrack.com/${maplanguage}/{z}/{x}/{y}.png?key=8c4
 }).addTo(map);
 
 const marker = L.icon({
-  iconUrl: 'assets/marker.png',
+  iconUrl: 'assets/img/marker.png',
   iconSize: [36, 36],
   iconAnchor: [18, 36]
 });
 
 const resmarker = L.icon({
-  iconUrl: 'assets/res_marker.png',
+  iconUrl: 'assets/img/res_marker.png',
   iconSize: [36, 36],
   iconAnchor: [18, 36]
 });
-
-L.geoJSON(benelux.features[0], {
-  style: function (feature) {
-    return {color: '#454647', weight: 1.5, dashArray: "5, 5", interactive: false, fillOpacity: 0};
-  }
-}).addTo(map);
 
 const resizeObserver = new ResizeObserver(() => {
   map.invalidateSize();
@@ -79,10 +74,52 @@ let resmrk = L.marker([-200, -200], {
 
 let resline;
 
-$("#restart").html(txt.return_start)
-$("#guess").html(txt.guess)
-$("#next").html(txt.next)
-$("#closeStats").html(txt.close);
+init();
+
+async function init() {
+  await $.getJSON('../assets/strings.json', function(data) {
+    strings = data;
+  });
+
+  await $.getJSON('../assets/bounds/belgium.json', function(data) {
+    belgium = data;
+  });
+
+  await $.getJSON('../assets/bounds/netherlands.json', function(data) {
+    netherlands = data;
+  });
+
+  await $.getJSON('../assets/bounds/luxembourg.json', function(data) {
+    luxembourg = data;
+  });
+
+  await $.getJSON('../assets/bounds/benelux.json', function(data) {
+    benelux = data;
+  });
+
+  if (params.get("hl") === "fr") {
+    txt = strings.FR;
+  } else if (params.get("hl") === "lu") {
+    txt = strings.LU;
+  } else if (params.get("hl") === "nl") {
+    txt = strings.NL;
+  } else {
+    txt = strings.EN;
+  }
+
+  L.geoJSON(benelux.features[0], {
+    style: function (feature) {
+      return {color: '#454647', weight: 1.5, dashArray: "5, 5", interactive: false, fillOpacity: 0};
+    }
+  }).addTo(map);
+
+  $("#restart").html(txt.return_start)
+  $("#guess").html(txt.guess)
+  $("#next").html(txt.next)
+  $("#closeStats").html(txt.close);
+
+  start();
+}
 
 function hardcore() {
   $('#hardcorePane').toggle();
@@ -136,8 +173,6 @@ async function start() {
     pickcoords = [e.latlng.lat.toFixed(7), e.latlng.lng.toFixed(7)];
   });
 }
-
-start();
 
 function restart() {
   $('#iframePane').html(txt.loading);
