@@ -25,14 +25,19 @@ if (localStorage.getItem("bnlg-data") == null) {
   localStorage.setItem("bnlg-data", JSON.stringify(da))
 }
 
-if (params.get("hl") === "fr") {
-  maplanguage = "fr";
-} else if (params.get("hl") === "lu") {
-  maplanguage = "_";
-} else if (params.get("hl") === "nl") {
-  maplanguage = "nl";
-} else {
-  maplanguage = "en";
+switch (params.get("hl")) {
+  case "fr":
+    maplanguage = "fr";
+    break;
+  case "lu":
+    maplanguage = "_";
+    break;
+  case "nl":
+    maplanguage = "nl";
+    break;
+  default:
+    maplanguage = "en";
+    break;
 }
 
 $("#titlelink").attr("href", "index.html?hl=" + (maplanguage === "_" ? "lu" : maplanguage));
@@ -77,38 +82,43 @@ let resline;
 init();
 
 async function init() {
-  await $.getJSON('../assets/strings.json', function(data) {
+  await $.getJSON('../assets/strings.json', function (data) {
     strings = data;
   });
 
-  await $.getJSON('../assets/bounds/belgium.json', function(data) {
+  await $.getJSON('../assets/bounds/belgium.json', function (data) {
     belgium = data;
   });
 
-  await $.getJSON('../assets/bounds/netherlands.json', function(data) {
+  await $.getJSON('../assets/bounds/netherlands.json', function (data) {
     netherlands = data;
   });
 
-  await $.getJSON('../assets/bounds/luxembourg.json', function(data) {
+  await $.getJSON('../assets/bounds/luxembourg.json', function (data) {
     luxembourg = data;
   });
 
-  await $.getJSON('../assets/bounds/benelux.json', function(data) {
+  await $.getJSON('../assets/bounds/benelux.json', function (data) {
     benelux = data;
   });
 
-  if (params.get("hl") === "fr") {
-    txt = strings.FR;
-  } else if (params.get("hl") === "lu") {
-    txt = strings.LU;
-  } else if (params.get("hl") === "nl") {
-    txt = strings.NL;
-  } else {
-    txt = strings.EN;
+  switch (params.get("hl")) {
+    case "fr":
+      txt = strings.FR;
+      break;
+    case "lu":
+      txt = strings.LU;
+      break;
+    case "nl":
+      txt = strings.NL;
+      break;
+    default:
+      txt = strings.EN;
+      break;
   }
 
   L.geoJSON(benelux.features[0], {
-    style: function (feature) {
+    style: function () {
       return {color: '#454647', weight: 1.5, dashArray: "5, 5", interactive: false, fillOpacity: 0};
     }
   }).addTo(map);
@@ -131,8 +141,7 @@ function hardcore() {
   setTimeout(() => {
     timer.stop();
     clearInterval(interval);
-    $('#iframePane').toggle(500);
-    $('#hardcorePane').toggle(500);
+    $('#iframePane, #hardcorePane').toggle(500);
     $('#hardcorePane').css("z-index", 1)
     $('#hardcoreInfo').html(txt.time_up);
     $('#restart').toggle(500);
@@ -223,9 +232,7 @@ function guess() {
   resultstr = resultstr.replace("\${timer}", (timer.getTime() / 1000).toFixed(1));
   $('#textBox').html(resultstr);
   $('#textBox span + br + span').html(txt.score + sc);
-  $('#restart').toggle();
-  $('#guess').toggle();
-  $('#next').toggle();
+  $('#restart, #guess, #next').toggle();
 }
 
 function next() {
@@ -238,9 +245,7 @@ function next() {
   }
   $('#map').removeAttr("style");
   $('#textBox').html("");
-  $('#restart').toggle();
-  $('#guess').toggle();
-  $('#next').toggle();
+  $('#restart, #guess, #next').toggle();
   mrk.setLatLng([-200, -200]);
   resmrk.setLatLng([-200, -200]);
   resline.removeFrom(map);
@@ -260,12 +265,12 @@ function statstoggle() {
   $('#hardcorePane').toggle();
 
   let str = JSON.parse(localStorage.getItem("bnlg-data"));
-  $('#statsContent').html(`<span>${txt.stats}</span><br><br>
-    ${txt.nbgames} ${str.nbGames}<br>
-    ${txt.scorec} ${str.score}<br>
-    ${txt.scoreh} ${str.scoreHardcore}<br>
-    ${txt.bestc} ${str.bestDist == null ? txt.none : distFormat(str.bestDist) + " (" + (str.bestTime / 1000).toFixed(1) + "s)"}<br>
-    ${txt.besth} ${str.bestDistHardcore == null ? txt.none : distFormat(str.bestDistHardcore) + " (" + (str.bestTimeHardcore / 1000).toFixed(1) + "s)"}<br>
-    ${txt.playtime} ${msToTime(str.playtime)}<br>
+  $('#statsContent').html(`<span class="statTitle">${txt.stats}</span><br><br>
+    ${txt.nbgames} <span class="statNumber">${str.nbGames}</span><br>
+    ${txt.scorec} <span class="statNumber">${str.score}</span><br>
+    ${txt.scoreh} <span class="statNumber">${str.scoreHardcore}</span><br>
+    ${txt.bestc} <span class="statNumber">${str.bestDist == null ? txt.none : distFormat(str.bestDist) + " (" + (str.bestTime / 1000).toFixed(1) + "s)"}</span><br>
+    ${txt.besth} <span class="statNumber">${str.bestDistHardcore == null ? txt.none : distFormat(str.bestDistHardcore) + " (" + (str.bestTimeHardcore / 1000).toFixed(1) + "s)"}</span><br>
+    ${txt.playtime} <span class="statNumber">${msToTime(str.playtime)}</span><br>
   `);
 }

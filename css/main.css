@@ -4,7 +4,13 @@ body {
   margin: 0;
   padding: 0;
   background-color: #000000;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sans-serif;
+  font-weight: 300;
+}
+
+button {
+  font-family: sans-serif;
+  font-weight: 300;
 }
 
 #panoramas, #mainPane {
@@ -58,11 +64,10 @@ body {
 }
 
 #bottomBar #restart {
-  font-family: Helvetica, sans-serif;
   margin: 16px 0 16px 32px;
   border-radius: 12px;
   background-color: #ffa958;
-  font-size: 125%;
+  font-size: 115%;
   border: 0;
   box-shadow: 0 0 10px 2px #ffa958;
 }
@@ -83,7 +88,6 @@ a {
 #bottomBar #next {
   display: none;
   color: #ffffff;
-  font-family: Helvetica, sans-serif;
   margin: 16px 32px 16px 0;
   border-radius: 12px;
   background-color: #1569ce;
@@ -112,7 +116,6 @@ a {
 }
 
 #bottomBar #guess {
-  font-family: Helvetica, sans-serif;
   margin: 16px 32px 16px 0;
   border-radius: 12px;
   background-color: #76a90c;
@@ -262,7 +265,6 @@ a {
 }
 
 #hardcoreStart {
-  font-family: Helvetica, sans-serif;
   margin: 16px 0 16px 32px;
   border-radius: 12px;
   background-color: #bb1a1a;
@@ -283,7 +285,6 @@ a {
 }
 
 #noHardcore {
-  font-family: Helvetica, sans-serif;
   margin: 16px 0 16px 32px;
   border-radius: 12px;
   background-color: #1569ce;
@@ -303,7 +304,6 @@ a {
 }
 
 #closeStats {
-  font-family: Helvetica, sans-serif;
   margin-left: auto;
   margin-right: auto;
   margin-top: 12px;
@@ -324,10 +324,14 @@ a {
   background-color: #8d1d1d;
 }
 
-#statsContent span {
-  font-size: 125%;
+#statsContent .statTitle {
+  font-size: 150%;
   font-weight: bold;
   font-family: "Roboto Condensed", sans-serif;
+}
+
+#statsContent .statNumber {
+  font-weight: bold;
 }
 
 #statsContent {
