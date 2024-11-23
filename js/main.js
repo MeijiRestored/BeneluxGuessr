@@ -44,12 +44,28 @@ $("#titlelink").attr("href", "index.html?hl=" + (maplanguage === "_" ? "lu" : ma
 $("html").attr("lang", maplanguage === "_" ? "lu" : maplanguage);
 
 var map = L.map('map', {zoomControl: false}).setView([51.601, 5.345], 6);
+const MAIN_TILE_URL = `https://tile.tracestrack.com/${maplanguage}/{z}/{x}/{y}.png?key=8c4267e8a3026ab8626b0ef7a7886842`;
+const FALLBACK_TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
-L.tileLayer(`https://tile.tracestrack.com/${maplanguage}/{z}/{x}/{y}.png?key=8c4267e8a3026ab8626b0ef7a7886842`, {
+let mapLayer = L.tileLayer(MAIN_TILE_URL, {
   minZoom: 5,
   maxZoom: 19,
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+function handleTileError(evt) {
+  if (evt.tile._hasError) return;
+
+  let si = Math.floor((Math.random() * 3));
+  let tileSrc = FALLBACK_TILE_URL.replace(/{s}/g, 'abc'.substring(si, si + 1));
+  tileSrc = tileSrc.replace(/{x}/g, evt.coords.x);
+  tileSrc = tileSrc.replace(/{y}/g, evt.coords.y);
+  tileSrc = tileSrc.replace(/{z}/g, evt.coords.z);
+  evt.tile._hasError = true;
+  evt.tile.src = tileSrc;
+}
+
+mapLayer.on('tileerror', handleTileError);
 
 const marker = L.icon({
   iconUrl: 'assets/img/marker.png',
