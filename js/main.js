@@ -44,7 +44,7 @@ switch (params.get("hl")) {
 $("#titlelink").attr("href", "index.html?hl=" + (maplanguage === "_" ? "lu" : maplanguage));
 $("html").attr("lang", maplanguage === "_" ? "lu" : maplanguage);
 
-var map = L.map('map', {zoomControl: false}).setView([51.601, 5.345], 6);
+let map = L.map('map', {zoomControl: false}).setView([51.601, 5.345], 6);
 const MAIN_TILE_URL = `https://tile.tracestrack.com/${maplanguage}/{z}/{x}/{y}.png?key=8c4267e8a3026ab8626b0ef7a7886842`;
 const FALLBACK_TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
@@ -246,8 +246,8 @@ function guess() {
   resline = L.polyline([coords, pickcoords], {color: '#2c3738', weight: 3, interactive: false}).addTo(map);
   map.off('click');
   let resultstr = txt.results;
-  resultstr = resultstr.replace("\${dist}", distFormat(dist));
-  resultstr = resultstr.replace("\${timer}", (timer.getTime() / 1000).toFixed(1));
+  resultstr = resultstr.replace("${dist}", distFormat(dist));
+  resultstr = resultstr.replace("${timer}", (timer.getTime() / 1000).toFixed(1));
   $('#textBox').html(resultstr);
   $('#textBox span + br + span').html(txt.score + sc);
   $('#restart, #guess, #next').toggle();
