@@ -79,7 +79,28 @@
   </div>
   <div id="statsWindow">
     <div id="statsContent"></div>
+    <button id="exportStats" onclick="exporttoggle()">
+      Export
+    </button>
+    <button id="importStats" onclick="importtoggle()">
+      Import
+    </button><br>
     <button id="closeStats" onclick="statstoggle()">
+      Close
+    </button>
+  </div>
+  <div id="exportWindow">
+    <div id="exportContent"></div>
+    <button id="closeExport" onclick="exporttoggle()">
+      Close
+    </button>
+  </div>
+  <div id="importWindow">
+    <div id="importContent"></div>
+    <button id="importExec" onclick="importstats()">
+      Import
+    </button>
+    <button id="closeImport" onclick="importtoggle()">
       Close
     </button>
   </div>

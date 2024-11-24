@@ -18,7 +18,13 @@
     "none": "None",
     "stats": "Statistics",
     "close": "Close",
-    "nbgames": "Games played:"
+    "nbgames": "Games played:",
+    "import": "Import",
+    "export": "Export",
+    "importdesc": "Paste the text you were given when exporting here to restore your stats. Be careful, stats saved on this browser will be overwritten!",
+    "exportdesc": "Copy this text to a location where you can find it again. It can be used to restore your stats on another browser.",
+    "importsuccess": "Imported successfully!",
+    "importfail": "Invalid format."
   },
   "FR": {
     "time_up": "Temps écoulé !",
@@ -39,7 +45,13 @@
     "none": "Aucune",
     "stats": "Statistiques",
     "close": "Fermer",
-    "nbgames": "Parties jouées :"
+    "nbgames": "Parties jouées :",
+    "import": "Importer",
+    "export": "Exporter",
+    "importdesc": "Collez ici le texte qui vous à été donné lors de l'exportation pour restaurer vos stats. Attention, les stats enregistrées sur cet navigateur seront écrasées !",
+    "exportdesc": "Copiez ce texte à un endroit ou vous le retrouverez. Il peut être utilisé pour restaurer vos stats sur un autre navigateur.",
+    "importsuccess": "Importé avec succès !",
+    "importfail": "Format invalide."
   },
   "NL": {
     "time_up": "Verstreken tijd !",
@@ -60,7 +72,13 @@
     "none": "Geen",
     "stats": "Statistieken",
     "close": "Sluiten",
-    "nbgames": "Spellen gespeeld:"
+    "nbgames": "Spellen gespeeld:",
+    "import": "Importeren",
+    "export": "Exporteren",
+    "importdesc": "Plak hier de tekst die u tijdens het exporteren heeft gekregen om uw statistieken te herstellen. Wees voorzichtig, de statistieken die in deze browser zijn opgeslagen, worden overschreven!",
+    "exportdesc": "Kopieer deze tekst waar u deze kunt vinden. Het kan worden gebruikt om uw statistieken in een andere browser te herstellen.",
+    "importsuccess": "Succesvol geïmporteerd!",
+    "importfail": "Ongeldig formaat."
   },
   "LU": {
     "time_up": "Zäit ass vergaangen!",
@@ -81,6 +99,12 @@
     "none": "Keen",
     "stats": "Statistiken",
     "close": "Zoumaachen",
-    "nbgames": "Spiller gespillt:"
+    "nbgames": "Spiller gespillt:",
+    "import": "Import",
+    "export": "Export",
+    "importdesc": "Paste hei den Text, deen Dir beim Export kritt hutt, fir Är Statistiken ze restauréieren. Passt op, d'Statistiken, déi an dësem Browser gespäichert sinn, ginn iwwerschriwwen!",
+    "exportdesc": "Kopieert dësen Text wou Dir en fannt. Et kann benotzt ginn fir Är Statistiken an engem anere Browser ze restauréieren.",
+    "importsuccess": "Erfollegt importéiert!",
+    "importfail": "Ongülteg Format."
   }
 }

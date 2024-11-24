@@ -165,7 +165,7 @@ async function getSpawn(bounds, country) {
     });
   }
 
-  while(true) {
+  while (true) {
     let c = getRandomCoordinates(b[country].bottomLeft.lat, b[country].bottomLeft.lng, b[country].topRight.lat, b[country].topRight.lng);
     if (checkInArea(c, bounds.features[0])) {
       let sv = await bindToStreetview(c.lat, c.lng);
@@ -177,3 +177,59 @@ async function getSpawn(bounds, country) {
     }
   }
 }
+
+function writeStats(stats) {
+  let str = `${ver}|${stats.score};${stats.bestDist};${stats.bestTime}|${stats.scoreHardcore};${stats.bestDistHardcore};${stats.bestTimeHardcore}|${stats.playtime};${stats.nbGames}`;
+
+  return btoa(str);
+}
+
+function readStats(stats) {
+  try {
+    let str = atob(stats);
+    let [ver, scores, hardcoreScores, general] = str.split('|');
+
+    if (parseInt(ver) !== 1) {
+      return {
+        "valid": false,
+      };
+    }
+
+    const parseValues = (data) => {
+      return data.split(';').map(value => value === 'null' ? null : parseFloat(value) || value);
+    };
+
+    let [score, bestDist, bestTime] = parseValues(scores);
+    let [scoreHardcore, bestDistHardcore, bestTimeHardcore] = parseValues(hardcoreScores);
+    let [playtime, nbGames] = parseValues(general);
+
+    let s = {
+      score,
+      bestDist,
+      bestTime,
+      scoreHardcore,
+      bestDistHardcore,
+      bestTimeHardcore,
+      playtime,
+      nbGames,
+      "valid": true
+    };
+
+    for (let e in s) {
+      if (e !== "valid") {
+        if (isNaN(s[e])) {
+          return {
+            "valid": false,
+          };
+        }
+      }
+    }
+
+    return s;
+  } catch (e) {
+    return {
+      "valid": false,
+    }
+  }
+}
+

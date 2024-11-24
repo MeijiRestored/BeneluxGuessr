@@ -3,6 +3,7 @@ let coords;
 let pickcoords = [0, 0];
 let interval;
 const timer = new Timer();
+const ver = 1;
 let txt;
 let maplanguage;
 let strings;
@@ -142,8 +143,9 @@ async function init() {
   $("#restart").html(txt.return_start)
   $("#guess").html(txt.guess)
   $("#next").html(txt.next)
-  $("#closeStats").html(txt.close);
-
+  $("#closeStats, #closeImport, #closeExport").html(txt.close);
+  $("#importStats, #importExec").html(txt.import);
+  $("#exportStats").html(txt.export);
   start();
 }
 
@@ -289,4 +291,34 @@ function statstoggle() {
     ${txt.besth} <span class="statNumber">${str.bestDistHardcore == null ? txt.none : distFormat(str.bestDistHardcore) + " (" + (str.bestTimeHardcore / 1000).toFixed(1) + "s)"}</span><br>
     ${txt.playtime} <span class="statNumber">${msToTime(str.playtime)}</span><br>
   `);
+}
+
+function exporttoggle() {
+  $('#exportWindow').toggle();
+
+  let str = JSON.parse(localStorage.getItem("bnlg-data"));
+  $('#exportContent').html(`<span class="exportTitle">${txt.export}</span><br><br>
+  ${txt.exportdesc}<br><br>
+  <textarea id="exportArea" class="textareaPrompt" readonly>${writeStats(str)}</textarea>`);
+}
+
+function importtoggle() {
+  $('#importWindow').toggle();
+
+  $('#importContent').html(`<span class="importTitle">${txt.import}</span><br><br>
+  ${txt.importdesc}<br><br>
+  <textarea id="importArea" class="textareaPrompt"></textarea>
+  <span id="importRes"></span>`);
+}
+
+function importstats() {
+  let stats = readStats($("#importArea").val());
+
+  if (!stats.valid) {
+    $('#importRes').html(txt.importfail);
+  } else {
+    delete stats.valid;
+    localStorage.setItem("bnlg-data", JSON.stringify(stats));
+    $('#importRes').html(txt.importsuccess);
+  }
 }
